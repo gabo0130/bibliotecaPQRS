@@ -1,0 +1,26 @@
+{
+  "name": "bibliotecapqrs",
+  "version": "1.0.0",
+  "description": "proyecto de programacion web donde se creara una aplicacion web la cual sirva para que usuarios de la biblioteca creen pqrs y los administrativos encargados lleven seguimiento de estos ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabo0130/bibliotecaPQRS.git"
+  },
+  "author": "Jhony Quintero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabo0130/bibliotecaPQRS/issues"
+  },
+  "homepage": "https://github.com/gabo0130/bibliotecaPQRS#readme",
+  "dependencies": {
+    "mysql2": "^3.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
+    "sequelize": "^6.31.0"
+  }
+}

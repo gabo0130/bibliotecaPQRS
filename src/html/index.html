@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Formulario PQRS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-header">
+          <h3>Formulario PQRS</h3>
+        </div>
+        <div class="card-body">
+          <form id="formulario-pqrs" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="correo" class="form-label">Correo:</label>
+              <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="mb-3">
+              <label for="asunto" class="form-label">Asunto:</label>
+              <input type="text" class="form-control" id="asunto" name="asunto" required>
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción:</label>
+              <textarea class="form-control" id="descripcion" name="descripcion" rows="5" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="archivo" class="form-label">Adjuntar archivo:</label>
+              <div class="dropzone" id="mi-dropzone"></div>
+            </div>
+            <button id="eliminar-archivo" class="btn btn-danger">Eliminar archivo</button>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+    <script src="../js/Dropzone.js" > </script>
+    <script src="../js/index.js" > </script>
+  </body>
+</html>
