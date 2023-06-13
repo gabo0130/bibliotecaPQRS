@@ -1,10 +1,10 @@
-import './App.css';
+import Dashboard from './components/Dashboard';
 import Formulario from './components/Formulario';
-
+import './App.css';
 function App() {
   return (
     <div className="App">
-      <Formulario />
+      <Dashboard />
     </div>
   );
 }

@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+
 import axios from "axios";
 import Dropzone from './Dropzone';
-
+import TipoSolicitud from './TipoSolicitud';
 
 const Formulario = () => {
-  
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [opcion, setOpcion] = useState('');
   const [campos, setCampos] = useState(['Nombre']);
   
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
-  const [asunto, setAsunto] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [archivos, setArchivos] = useState([]);
 
+  const [asunto, setAsunto] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  
+  const handleAsuntoChange = (newValue) => {
+    setAsunto(newValue);
+  };
 
   const handleNombreChange = (e) => {
     setNombre(e.target.value);
@@ -23,9 +29,9 @@ const Formulario = () => {
   const handleCorreoChange = (e) => {
     setCorreo(e.target.value);
   };
-
-  const handleAsuntoChange = (e) => {
-    setAsunto(e.target.value);
+ 
+  const handleTelefonoChange = (e) => {
+    setTelefono(e.target.value);
   };
 
   const handleDescripcionChange = (e) => {
@@ -33,7 +39,7 @@ const Formulario = () => {
   };
 
   const handleArchivosDrop = (acceptedFiles) => {
-    setArchivos(acceptedFiles);
+    setArchivos((prevArchivos) => [...prevArchivos, ...acceptedFiles]);
   };
 
   const handleFormButtonClick = (opcion) => {
@@ -48,7 +54,7 @@ const Formulario = () => {
         break;
       case 'boton2':
         document.getElementById("usual").classList.add("is-active");
-        setCampos(['Nombre', 'Identificacion']);
+        setCampos(['Identificacion', 'Nombre' ]);
         break;
       case 'boton3':
         document.getElementById("nuevo").classList.add("is-active");
@@ -59,33 +65,72 @@ const Formulario = () => {
         break;
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-
+  
+    const data = {
+      descripcion: descripcion,
+      estado: "En proceso",
+      fecha: new Date().toISOString(),
+      correoAdicionado: correo,
+      telefonoAdicionado: telefono,
+      rutaArchivos: "",
+      tipoSolicitud: {
+        id: asunto,
+      },
+    };
+    console.log(data);
+  
     setIsFormSubmitted(true);
-    formData.append("Nombre", nombre);
-    formData.append("Correo", correo);
-    formData.append("Asunto", asunto);
-    formData.append("Descripcion", descripcion);
+  
+    axios.post(apiUrl + "solicitudes/", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        const responseData = response.data; 
+        subirArchivos(responseData.id);
+        console.log(responseData); 
+        alert("El formulario ha sido enviado con éxito.");
+      })
+      .catch((error) => {
+        // Hubo un error en la solicitud
+        console.error(error); // Mostrar el error en la consola o hacer algo con él
+        alert("Ocurrió un error al enviar el formulario.");
+      });
+  };
 
+  const handleFormReset = () => {
+    setNombre("");
+    setCorreo("");
+    setTelefono("");
+    setDescripcion("");
+    setArchivos([]);
+    setAsunto("");
+    setIsFormSubmitted(false);
+  };
+
+  const subirArchivos = async (idSolicitud) => {
+    console.log(idSolicitud); 
+    const formData = new FormData();
     archivos.forEach((archivo) => {
       formData.append("archivos", archivo);
     });
-
-    try {
-      await axios.post("api aqui xd", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    axios.post(apiUrl + "solitudes/"+idSolicitud+"/archivos", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((response) => {
+        handleFormReset();
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Ocurrió un error al añadir archivos.");
       });
-      alert("El formulario ha sido enviado con éxito.");
-    } catch (error) {
-      alert("Ocurrió un error al enviar el formulario.");
+    
     }
-  };
+
 
   return (
     <div class="container">
@@ -108,22 +153,18 @@ const Formulario = () => {
       </div>
       
       <div>
-        <input type="number" id="telefonoAdjunto" value={correo} onChange={handleCorreoChange} placeholder="Telefono adjunto"/>
+        <input type="number" id="telefonoAdjunto" value={telefono} onChange={handleTelefonoChange} placeholder="Telefono adjunto"/>
       </div>
-      <div>
-        <select id="asunto" value={asunto} onChange={handleAsuntoChange}>
-          <option value="">Selecciona un asunto</option>
-          <option value="1">Peticiones</option>
-          <option value="2">Quejas</option>
-          <option value="3">Reclamos</option>
-          <option value="4">Sugerencias</option>
-        </select>
-      </div>
+      
+        <div>
+          <TipoSolicitud onAsuntoChange={handleAsuntoChange}/>
+        </div>
       <div>
         <textarea id="descripcion" value={descripcion} onChange={handleDescripcionChange} placeholder="Descripcion"/>
       </div>
+      
       <div>
-        <Dropzone onDrop={handleArchivosDrop} />
+        <Dropzone onDrop={handleArchivosDrop}  archivos={archivos}/>
       </div>
 
       <button type="submit" class="button">Enviar</button>

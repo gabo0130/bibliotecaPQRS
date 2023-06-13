@@ -1,0 +1,54 @@
+aside {
+    display: flex;
+flex-flow: row wrap;
+margin-top: 16px;
+
+}
+
+aside > .container {
+    display: inline-flex;
+    border-radius: 2px;
+    border: 1px solid rgb(234, 234, 234);
+    margin-bottom: 8px;
+    margin-right: 8px;
+    width: 100px;
+    height: 100px;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+
+  aside > .container > div {
+    display: flex;
+    min-width: 0px;
+    position: relative;
+  }
+
+    aside > .container > div > img {
+        display: block;
+        width: auto;
+        height: 100%;
+    }
+    aside > .container > div > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.5em;
+    font-weight: bold;
+    width: 80%;
+    overflow: hidden;
+}
+
+aside > .container > div > span:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 1em;
+    overflow: visible;
+    white-space: normal;
+    word-wrap: break-word;
+    z-index: 1;
+    
+}

@@ -1,8 +1,8 @@
 // Configuración de Dropzone
 Dropzone.autoDiscover = false;
 var myDropzone = new Dropzone("#mi-dropzone", {
-  url: "/upload",
-  maxFiles: 1,
+  url: "../html/index.html",
+  maxFiles: 5,
   acceptedFiles: ".jpg,.jpeg,.png,.pdf",
   dictDefaultMessage: "Arrastra aquí un archivo o haz clic para seleccionar uno"
 });

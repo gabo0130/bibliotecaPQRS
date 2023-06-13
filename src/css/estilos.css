@@ -1,0 +1,42 @@
+html, body {
+    height: 100%;
+  }
+  
+  .dashboard {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container-fluid {
+    flex-grow: 1;
+  }
+  
+  .navbar-brand {
+    font-family: "quicksand", sans-serif;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+    color: #333;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar-brand:hover {
+    background-color: #e9ecef;
+  }
+  
+    
+
+  .navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  
+  .dropdown-item {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  
